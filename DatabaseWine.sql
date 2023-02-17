@@ -4,7 +4,7 @@ USE wine_shop;
 
 /*DOMANDE:
 1. l'ordine di acquisto potrebbe essere la stessa cosa della proposta di acquisto. nel file non c'è nessun attributo riferito all'ordine di acquisto.
-2. dato che una fk deve fare la referenza ad una pk, nel caso della proposta di acquisto in cui all'interno deve essere l'indirizzo di consegna, esso non deve essere una fk.
+2. nel caso di cardinalità 1 a N, l'N 
 */
 
 CREATE TABLE user(
@@ -34,6 +34,12 @@ CREATE TABLE supplier(
     email varchar(50) NOT NULL,
     phone_number varchar(50) NOT NULL,
     user_address varchar(50) NOT NULL,
+    fk_courier_email varChar(50) NOT NULL,
+    fk_purchase_order_id varChar(5) NOT NULL,
+    fk_wine_name varChar(50) NOT NULL,
+    foreign key (fk_courier_email) references courier(email),
+    foreign key (fk_purchase_order_id) references purchase_order(id), 
+    foreign key (fk_wine_name) references wine(wine_name),
     primary key (email)
 );
 
@@ -46,6 +52,12 @@ CREATE TABLE wine(
     vine_of_origin varChar(50) NOT NULL,
     n_bottles integer,
     price_bottle float NOT NULL,
+    fk_supplier_email varChar(50) NOT NULL,
+    fk_sales_order_id integer(5) NOT NULL,
+    fk_purchase_proposal_id integer(5) NOT NULL,
+    foreign key(fk_supplier_email) references supplier(email),
+    foreign key(fk_sales_order_id) references sales_order(id),
+    foreign key(fk_purchase_proposal_id) references purchase_proposal(id),
     primary key (wine_name)
 );
 
@@ -69,18 +81,24 @@ CREATE TABLE sales_order /*Ordine di vendita*/(
     delivery_address varChar(50) NOT NULL,
     delivery_date date NOT NULL,
     foreign key (fk_user_firstname) references user(firstname),
-    foreign key (fk_name_wine) references wine(wine_name)
+    foreign key (fk_name_wine) references wine(wine_name),
+    primary key (id)
 );
 
-CREATE TABLE purchase_order /*Ordine di acquisto*/(
+CREATE TABLE purchase_order /*Ordine di acquisto*/( /*DA FINIRE PERCHE NEL PDF NON CI SONO SCRITTI GLI ATTRIBUTI*/
     id integer(5) NOT NULL AUTO_INCREMENT,
+    fk_user_firstname varChar(50) NOT NULL,
+    fk_supplier_email varChar(50) NOT NULL,
+    foreign key (fk_user_firstname) references user(firstname),
+    foreign key (fk_supplier_email) references supplier(email),
+    primary key (id)
 );
 
 CREATE TABLE purchase_proposal /*Proposta di acquisto*/(
     id integer(5) NOT NULL AUTO_INCREMENT,
     n_bottles integer(100) NOT NULL,
-    fk_user_address varChar(50) NOT NULL, /*SBAGLIATO DOMANDA 2*/
+    user_address varChar(50) NOT NULL,
     fk_wine_name varChar(50) NOT NULL,
     foreign key (fk_wine_name) references wine(wine_name),
-    foreign key (fk_user_address) references user(user_address), /*SBAGLIATO DOMANDA 2*/
+    primary key (id)
 );
