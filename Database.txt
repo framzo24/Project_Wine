@@ -1,0 +1,81 @@
+Progetto OnlineWineShop
+
+
+Persone:
+- nome
+- cognome
+- codice fiscale
+- indirizzo email
+- numero telefonico
+
+
+Persone : clienti
+- indirizzo di consegna
+  + effettuare registrazione
+  + ricerca vino per nome e anno
+  + acquisto bottiglie dopo accesso autenticato confezioni da 1 a 5 bottiglie e casse da 6 (sconto 5% e ogni cassa in piu ulteriore 2%) e 12 bottiglie (sconto 10% e ogni cassa in piu ulteriore 3%)
+  + compilazione proposta di acquisto
+
+Persone : impiegati (almeno 3)
+- indirizzo di residenza
+  + accesso al sistema tramite utente e pwd
+  + consentito modifica pwd
+  + ricerca cliente per cognome
+  + ricerca vini per nome e/o anno di produzione
+  + ricerca ordini di vendita, di acquisto e proposte di acquisto per intervallo di date
+
+Persone : amministratore
+- indirizzo di residenza
+  + accesso al sistema tramite utente e pwd
+  + consentito modifica pwd avendo una pwd iniziale predefinita
+  + registrare gli impiegati, resettarli o cancellarli
+  + ricerca cliente per cognome
+  + ricerca vini per nome e/o anno di produzione
+  + ricerca ordini di vendita, di acquisto e proposte di acquisto per intervallo di date
+  + report mensile
+
+Persone : corriere
+- indirizzo aziendale
+
+Persone : fornitore
+- indirizzo aziendale
+
+vini
+- nome
+- produttore
+- provenienza
+- anno
+- note tecniche
+- vitigni da cui derivano
+
+bottiglia
+- prezzo
+
+ordine di acquisto
+- vini che cliente vuole acquistare
+    - nome vino
+    - numero bottiglie
+- indirizzo di consegna
+
+ordine di vendita
+- dati proposta di acquisto
+- prezzo dei vini
+- data di consegna
+- dopo consegna impiegato firma digitalmente
+
+sistema
+  + ogni accesso di un cliente esso informa il cliente delle offerte
+  + tracciare le vendite e quelle ancora non vendute
+  + aggiorna numero di vendite e disponibilità dei vini dopo ogni acquisto
+  + devono esserci abbastanza bottiglie (impostare numero minimo di bottiglie)
+
+iter proposta di acquisto
+        1. cliente compila ordine
+        2. sistema riceve e invia copia all’impiegato
+        3. impiegato prepara ordine e invia al fornitore
+        4. fornitore riceve ordine e lo prepara e effettua consegna
+        5. impiegato riceve materiale e chiede al sistema di generare un ordine di vendita partendo dai dati della proposta di acquisto, dai prezzi dei vini e dalla data di consegna (definita con il corriere) e invia l’ordine di vendita 
+        6. cliente riceve l’ordine di vendita e sceglie se acquistare o no
+        7. se si cliente paga tramite il sistema
+        8. se no cliente annulla acquisto
+
